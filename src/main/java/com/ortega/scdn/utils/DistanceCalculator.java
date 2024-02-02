@@ -8,12 +8,12 @@ public class DistanceCalculator {
 
     public static double distanceBetweenTwoPoints(Location p1, Location p2) {
 
-        double dLat = Math.toRadians(p2.getLatitude() - p1.getLongitude()); // Get difference between lat for p1 and p2
-        double dLon = Math.toRadians(p2.getLongitude() - p1.getLatitude()); // Get difference between long for p1 and p2
+        double dLat = Math.toRadians(p2.getLat() - p1.getLon()); // Get difference between lat for p1 and p2
+        double dLon = Math.toRadians(p2.getLon() - p1.getLat()); // Get difference between long for p1 and p2
 
         // Square of sinus function
         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(Math.toRadians(p1.getLatitude())) * Math.cos(Math.toRadians(p2.getLatitude())) *
+                Math.cos(Math.toRadians(p1.getLat())) * Math.cos(Math.toRadians(p2.getLat())) *
                         Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
         // Get center angle between two points
