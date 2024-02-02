@@ -9,13 +9,13 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class GeolocationService {
 
-    private static final String url = "https://nominatim.openstreetmap.org/search?format=json&q=";
+    private static final String URL = "https://nominatim.openstreetmap.org/search?format=json&q=";
 
     public Location getLocationByCityName(String city) {
         RestTemplate restTemplate = new RestTemplate();
 
         try {
-            Location[] response = restTemplate.getForObject(url + city, Location[].class);
+            Location[] response = restTemplate.getForObject(URL + city, Location[].class);
             assert response != null;
             return new Location(response[0].getLatitude(), response[0].getLongitude());
         } catch (Exception e) {
