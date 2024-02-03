@@ -18,8 +18,6 @@ public class SCdnController {
 
     @Autowired
     private GeolocationService geolocationService;
-    @Autowired
-    private CdnServerService cdnServerService;
 
     @GetMapping("/info")
     public String index() {
