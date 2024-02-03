@@ -5,6 +5,6 @@ import com.ortega.scdn.models.Location;
 
 public interface GeolocationService {
 
-    public Location getLocationByCityName(String city);
+    Location getLocationByCityName(String city);
 
 }

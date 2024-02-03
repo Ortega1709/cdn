@@ -3,17 +3,21 @@ package com.ortega.scdn.models;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CdnServer {
-
-    private UUID id;
+@Document
+public class Server {
+    @Id
+    private UUID id = UUID.randomUUID();
     private String name;
-    private double latency;
     private Location location;
+    private int latency;
+    private int bandwidth;
 
 }
