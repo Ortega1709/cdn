@@ -2,8 +2,11 @@ package com.ortega.scdn.services;
 
 import com.ortega.scdn.models.Location;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import static com.ortega.scdn.utils.Constants.LOCATION_CACHE;
 
 @Slf4j
 @Service
@@ -12,6 +15,7 @@ public class GeolocationServiceImpl implements GeolocationService {
     private static final String URL = "https://nominatim.openstreetmap.org/search?format=json&q=";
 
     @Override
+    @Cacheable(LOCATION_CACHE)
     public Location getLocationByCityName(String city) {
         log.info("Get location by city name {}", city);
         RestTemplate restTemplate = new RestTemplate();
