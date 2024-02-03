@@ -23,7 +23,7 @@ public class CdnServiceServiceImpl implements CdnServerService {
     }
 
     @Override
-    public List<Object> getAllServers() {
+    public List<CdnServer> getAllServers() {
         log.info("Fetch all servers");
         return cdnServerRepository.getAllServers();
     }
