@@ -11,7 +11,7 @@ public interface ServerService {
     Server saveServer(Server cdnServer);
     List<Server> getAllServers();
     Optional<Server> getServerById(UUID id);
-
+    void updateServer(Server server);
     void deleteServer(UUID id);
 
 

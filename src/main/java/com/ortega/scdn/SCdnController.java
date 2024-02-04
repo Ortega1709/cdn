@@ -8,6 +8,7 @@ import com.ortega.scdn.utils.ResponseHandler;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,10 +56,20 @@ public class SCdnController {
     }
 
     @PostMapping("/servers")
-    public ResponseEntity<Object> saveServer(@RequestBody Server server) {
+    public ResponseEntity<Object> saveServer(@Validated @RequestBody Server server) {
         try {
             Server serverResponse = serverService.saveServer(server);
             return ResponseHandler.response(SUCCESS_MSG, HttpStatus.CREATED, serverResponse);
+        } catch (Exception e) {
+            return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
+        }
+    }
+
+    @PutMapping("/servers")
+    public ResponseEntity<Object> updateServer(@Validated @RequestBody Server server) {
+        try {
+            serverService.updateServer(server);
+            return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, null);
         } catch (Exception e) {
             return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
         }
@@ -73,7 +84,6 @@ public class SCdnController {
             return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
         }
     }
-
     @DeleteMapping("/servers/{id}")
     public ResponseEntity<Object> deleteServerById(@PathVariable String id) {
         try {
