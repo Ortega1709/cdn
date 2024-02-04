@@ -1,7 +1,9 @@
 package com.ortega.scdn.services;
 
+import com.ortega.scdn.models.Server;
+
 public interface CdnService {
 
-    void findOptimalServer(String city);
+    Server findOptimalServer(String city);
 
 }

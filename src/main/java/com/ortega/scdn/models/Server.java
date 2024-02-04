@@ -19,5 +19,6 @@ public class Server {
     private Location location;
     private double latency;
     private double bandwidth;
+    private Boolean available = true;
 
 }

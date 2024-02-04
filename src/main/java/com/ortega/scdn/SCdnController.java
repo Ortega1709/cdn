@@ -47,8 +47,8 @@ public class SCdnController {
     @GetMapping("/servers/optimal")
     public ResponseEntity<Object> getOptimalServerByCityName(@RequestParam("city") String city) {
         try {
-            cdnService.findOptimalServer(city);
-            return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, null);
+            Server cdnResponse = cdnService.findOptimalServer(city);
+            return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, cdnResponse);
         } catch (Exception e) {
             return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
         }
