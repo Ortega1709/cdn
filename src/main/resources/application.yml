@@ -10,3 +10,5 @@ spring:
       authentication-database: admin
       port: 27017
       host: localhost
+
+
