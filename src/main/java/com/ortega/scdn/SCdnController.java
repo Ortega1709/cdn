@@ -2,9 +2,11 @@ package com.ortega.scdn;
 
 import com.ortega.scdn.models.Location;
 import com.ortega.scdn.models.Server;
+import com.ortega.scdn.services.CdnService;
 import com.ortega.scdn.services.GeolocationServiceImpl;
 import com.ortega.scdn.services.ServerServiceImpl;
 import com.ortega.scdn.utils.ResponseHandler;
+import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +21,13 @@ import static com.ortega.scdn.utils.Constant.ERROR_MSG;
 import static com.ortega.scdn.utils.Constant.SUCCESS_MSG;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("api/v1")
 public class SCdnController {
 
     private final GeolocationServiceImpl geolocationService;
+    private final CdnService cdnService;
     private final ServerServiceImpl serverService;
-
-    public SCdnController(GeolocationServiceImpl geolocationService, ServerServiceImpl serverService) {
-        this.geolocationService = geolocationService;
-        this.serverService = serverService;
-    }
 
     @GetMapping("/info")
     public String index() {
@@ -40,6 +39,16 @@ public class SCdnController {
         try {
             Location locationResponse = geolocationService.getLocationByCityName(city);
             return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, locationResponse);
+        } catch (Exception e) {
+            return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
+        }
+    }
+
+    @GetMapping("/servers/optimal")
+    public ResponseEntity<Object> getOptimalServerByCityName(@RequestParam("city") String city) {
+        try {
+            cdnService.findOptimalServer(city);
+            return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, null);
         } catch (Exception e) {
             return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
         }

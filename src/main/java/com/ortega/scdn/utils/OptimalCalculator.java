@@ -2,11 +2,11 @@ package com.ortega.scdn.utils;
 
 import com.ortega.scdn.models.Location;
 
-public class DistanceCalculator {
+public class OptimalCalculator {
 
     private static final double EARTH_RADIUS = 6371;
 
-    public static double distanceBetweenTwoPoints(Location p1, Location p2) {
+    public static double getDistanceBetweenTwoLocation(Location p1, Location p2) {
 
         double dLat = Math.toRadians(p2.getLat() - p1.getLon()); // Get difference between lat for p1 and p2
         double dLon = Math.toRadians(p2.getLon() - p1.getLat()); // Get difference between long for p1 and p2
@@ -20,6 +20,11 @@ public class DistanceCalculator {
         double center = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return EARTH_RADIUS * center;
 
+    }
+
+    public static double getScore(double distance, double latency, double bandwidth) {
+        // get score of server by sum distance, latency and bandwidth
+        return distance + latency + bandwidth;
     }
 }
 

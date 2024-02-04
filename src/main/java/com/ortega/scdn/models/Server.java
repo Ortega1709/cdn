@@ -17,7 +17,7 @@ public class Server {
     private UUID id = UUID.randomUUID();
     private String name;
     private Location location;
-    private int latency;
-    private int bandwidth;
+    private double latency;
+    private double bandwidth;
 
 }
