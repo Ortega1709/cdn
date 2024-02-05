@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  data:
+    mongodb:
+      host: localhost
+      username: root
+      password: root
+      database: cdn
+      authentication-database: admin
+      port: 27017
+
+  application:
+    name: s-cdn
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: s-gemena
+            uri: http://localhost:8085/
+            predicates:
+              - name: Path:/api/v1/info
+
+          - id: s-goma
+            uri: http://localhost:8083/
+            predicates:
+              - name: Path:/api/v1/info
+
+          - id: s-lubumbashi
+            uri: http://localhost:8082/
+            predicates:
+              - name: Path:/api/v1/info
+
+          - id: s-lusambo
+            uri: http://localhost:8084/
+            predicates:
+              - name: Path:/api/v1/info
+
+          - id: s-matadi
+            uri: http://localhost:8081/
+            predicates:
+              - name: Path:/api/v1/info
