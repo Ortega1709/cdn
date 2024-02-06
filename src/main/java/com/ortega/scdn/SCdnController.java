@@ -8,10 +8,12 @@ import com.ortega.scdn.services.ServerServiceImpl;
 import com.ortega.scdn.utils.ResponseHandler;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.cglib.proxy.Proxy;
+import org.springframework.cloud.gateway.server.mvc.handler.ProxyExchange;
+import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -102,4 +104,20 @@ public class SCdnController {
             return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
         }
     }
+
+    @GetMapping("/proxy")
+    public ResponseEntity<String> getMovieById() {
+        try {
+
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "xxxxx");
+
+            HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+            return restTemplate.exchange("http://localhost:8085/api/v1/info", HttpMethod.GET, httpEntity, String.class);
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getMessage());
+        }
+    }
+
 }
