@@ -7,9 +7,6 @@ import com.ortega.scdn.services.GeolocationServiceImpl;
 import com.ortega.scdn.services.ServerServiceImpl;
 import com.ortega.scdn.utils.ResponseHandler;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.cglib.proxy.Proxy;
-import org.springframework.cloud.gateway.server.mvc.handler.ProxyExchange;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.ortega.scdn.utils.Constant.ERROR_MSG;
 import static com.ortega.scdn.utils.Constant.SUCCESS_MSG;
 
 @RestController
