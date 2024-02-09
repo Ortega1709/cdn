@@ -55,6 +55,16 @@ public class SongController {
         }
     }
 
+    @PutMapping("")
+    public ResponseEntity<Object> updateSong(@RequestBody Song song) {
+        try {
+            songService.updateSong(song);
+            return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, null);
+        } catch (Exception e) {
+            return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteSongById(@PathVariable String id) {
         try {

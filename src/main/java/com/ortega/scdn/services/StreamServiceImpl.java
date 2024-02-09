@@ -11,8 +11,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import static com.ortega.scdn.utils.Constant.MOVIE_FORMAT;
-import static com.ortega.scdn.utils.Constant.SONG_FORMAT;
+import static com.ortega.scdn.utils.Constant.*;
 
 @Slf4j
 @Service
@@ -26,7 +25,7 @@ public class StreamServiceImpl implements StreamService {
     @Override
     public Mono<Resource> getSong(String link) {
         log.info("Stream song {}", link);
-        return Mono.fromSupplier(() -> resourceLoader.getResource(String.format(SONG_FORMAT, link)));
+        return Mono.fromSupplier(() -> resourceLoader.getResource(String.format(SONG_FORMAT, link + SONG_EXTENSION)));
     }
 
 }
