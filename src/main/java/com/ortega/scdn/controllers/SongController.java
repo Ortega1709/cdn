@@ -30,7 +30,7 @@ public class SongController {
             List<Song> songResponse = songService.getAllSongs();
             return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, songResponse);
         } catch (Exception e) {
-            return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
+            return ResponseHandler.response(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 
@@ -41,7 +41,7 @@ public class SongController {
             Song songResponse = songService.saveSong(song, file);
             return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, songResponse);
         } catch (Exception e) {
-            return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
+            return ResponseHandler.response(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 
@@ -51,7 +51,7 @@ public class SongController {
             Optional<Song> songResponse = songService.getSongById(UUID.fromString(id));
             return ResponseHandler.response(SUCCESS_MSG, HttpStatus.OK, songResponse);
         } catch (Exception e) {
-            return ResponseHandler.response(e.getMessage(), HttpStatus.EXPECTATION_FAILED, null);
+            return ResponseHandler.response(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 

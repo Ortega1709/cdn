@@ -1,16 +1,12 @@
 package com.ortega.scdn.services;
 
 import com.ortega.scdn.models.Song;
-import com.ortega.scdn.models.Server;
 import com.ortega.scdn.repository.SongRepository;
 import com.ortega.scdn.utils.UploadUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,20 +16,20 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.ortega.scdn.utils.Constant.SONG_CACHE;
+
 
 @Slf4j
 @Service
 @AllArgsConstructor
 public class SongServiceImpl implements SongService {
 
-    @Autowired
-    @Qualifier("webApplicationContext")
-    private ResourceLoader resourceLoader;
-    
     private SongRepository songRepository;
 
     @Override
+    @CacheEvict(value = SONG_CACHE, allEntries = true)
     public Song saveSong(Song song, MultipartFile file) {
+        log.info("Add new song");
         String songLink = uploadSong(file);
 
         // set song link
@@ -43,6 +39,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    @Cacheable(SONG_CACHE)
     public List<Song> getAllSongs() {
         log.info("Get all songs");
         return songRepository.findAll();
@@ -55,12 +52,14 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    @CacheEvict(value = SONG_CACHE, allEntries = true)
     public void updateSong(Song song) {
         log.info("Update song");
         songRepository.save(song);
     }
 
     @Override
+    @CacheEvict(value = SONG_CACHE, allEntries = true)
     public void deleteSong(UUID id) {
         log.info("Delete song");
 

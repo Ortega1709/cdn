@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.ortega.scdn.utils.Constant.MAX_BANDWIDTH;
 import static com.ortega.scdn.utils.Constant.SERVER_CACHE;
 
 @Slf4j
@@ -45,6 +46,8 @@ public class ServerServiceImpl implements ServerService {
     @Override
     @CacheEvict(value = SERVER_CACHE, allEntries = true)
     public void updateServer(Server server) {
+        server.setAvailable(!(server.getBandwidth() >= MAX_BANDWIDTH));
+
         log.info("Update one server");
         serverRepository.save(server);
     }
